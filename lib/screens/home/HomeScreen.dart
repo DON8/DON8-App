@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:don8/screens/home/widgets/widgets.dart';
+import 'package:don8/screens/screens.dart';
+import 'package:don8/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -10,11 +12,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final sliderItems = [
     ClipRRect(
-      child: CachedNetworkImage(imageUrl: "https://dummyimage.com/700x400/fff/000"),
+      child: CachedNetworkImage(
+          imageUrl: "https://dummyimage.com/700x400/fff/000"),
       borderRadius: BorderRadius.all(Radius.circular(16.0)),
     ),
     ClipRRect(
-      child: CachedNetworkImage(imageUrl: "https://dummyimage.com/700x400/000/fff"),
+      child: CachedNetworkImage(
+          imageUrl: "https://dummyimage.com/700x400/000/fff"),
       borderRadius: BorderRadius.all(Radius.circular(16.0)),
     ),
   ];
@@ -53,14 +57,13 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 HeadingWidget(
                   title: "Campaigns",
-                  onPressed: () {},
+                  onPressed: goToCompaigns,
                 ),
                 SizedBox(height: 8),
                 campaignsList(),
                 SizedBox(height: 8),
                 HeadingWidget(
                   title: "Coffees & Restaurants Near You",
-                  onPressed: () {},
                 ),
                 closeCoffeesList(),
                 SizedBox(height: 16),
@@ -70,6 +73,11 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
+  }
+
+  goToCompaigns() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => CampaignsScreen()));
   }
 
   Container closeCoffeesList() {
@@ -106,7 +114,6 @@ class _HomeScreenState extends State<HomeScreen> {
               restaurantName: "Starbucks",
             ),
           ),
-          IconButton(icon: Icon(Icons.arrow_forward_ios), onPressed: () {})
         ],
       ),
     );
@@ -121,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Container(
             width: 150,
             child: CampaignCard(
-              campaignId: 0,
+              campaignId: "0",
               campaignOwner: "Starbucks",
               campaignText: "Buy one, free one",
               imageUrl: "https://dummyimage.com/300x300/000/fff",
@@ -130,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Container(
             width: 150,
             child: CampaignCard(
-              campaignId: 0,
+              campaignId: "0",
               campaignOwner: "Starbucks",
               campaignText: "Buy one, free one",
               imageUrl: "https://dummyimage.com/300x300/000/fff",
@@ -139,7 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Container(
             width: 150,
             child: CampaignCard(
-              campaignId: 0,
+              campaignId: "0",
               campaignOwner: "Starbucks",
               campaignText: "Buy one, free one",
               imageUrl: "https://dummyimage.com/300x300/000/fff",
@@ -148,13 +155,16 @@ class _HomeScreenState extends State<HomeScreen> {
           Container(
             width: 150,
             child: CampaignCard(
-              campaignId: 0,
+              campaignId: "0",
               campaignOwner: "Starbucks",
               campaignText: "Buy one, free one",
               imageUrl: "https://dummyimage.com/300x300/000/fff",
             ),
           ),
-          IconButton(icon: Icon(Icons.arrow_forward_ios), onPressed: () {})
+          IconButton(
+            icon: Icon(Icons.arrow_forward_ios),
+            onPressed: goToCompaigns,
+          ),
         ],
       ),
     );

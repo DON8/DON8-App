@@ -1,5 +1,6 @@
 import 'package:don8/screens/screens.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 
 class RootScreen extends StatefulWidget {
@@ -29,6 +30,22 @@ class _RootScreenState extends State<RootScreen> with TickerProviderStateMixin {
 
     _tabBarController.addListener(() {
       _selectedIndex = _tabBarController.index;
+
+      if (_selectedIndex == 2)
+        SystemChrome.setSystemUIOverlayStyle(
+          SystemUiOverlayStyle.dark.copyWith(
+            statusBarIconBrightness: Brightness.dark,
+            statusBarBrightness: Brightness.dark,
+          ),
+        );
+      else {
+        SystemChrome.setSystemUIOverlayStyle(
+          SystemUiOverlayStyle.dark.copyWith(
+            statusBarIconBrightness: Brightness.light,
+            statusBarBrightness: Brightness.light,
+          ),
+        );
+      }
       setState(() {});
     });
   }

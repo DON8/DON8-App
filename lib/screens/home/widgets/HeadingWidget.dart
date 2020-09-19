@@ -11,7 +11,7 @@ class HeadingWidget extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 4),
       child: FlatButton(
-        onPressed: onPressed,
+        onPressed: onPressed == null ? () {} : onPressed,
         padding: EdgeInsets.zero,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -21,7 +21,7 @@ class HeadingWidget extends StatelessWidget {
               style: TextStyle(fontFamily: "Montserrat", fontSize: 18),
               textAlign: TextAlign.start,
             ),
-            Icon(Icons.keyboard_arrow_right, size: 36),
+            if (onPressed != null) Icon(Icons.keyboard_arrow_right, size: 36),
           ],
         ),
       ),

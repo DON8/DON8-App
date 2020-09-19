@@ -5,7 +5,7 @@ class CampaignCard extends StatelessWidget {
   final String imageUrl;
   final String campaignText;
   final String campaignOwner;
-  final int campaignId;
+  final String campaignId;
 
   CampaignCard({
     this.imageUrl,

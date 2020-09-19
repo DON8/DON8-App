@@ -16,7 +16,13 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        GoogleMap(initialCameraPosition: _kGooglePlex),
+        GoogleMap(
+          initialCameraPosition: _kGooglePlex,
+          scrollGesturesEnabled: false,
+          zoomControlsEnabled: false,
+          zoomGesturesEnabled: false,
+          liteModeEnabled: true,
+        ),
         Center(
           child: Container(
             height: 250,
