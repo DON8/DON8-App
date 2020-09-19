@@ -28,6 +28,8 @@ dependencies:
   syncfusion_flutter_gauges: ^18.2.57
   font_awesome_flutter: ^8.8.1
   carousel_slider: ^2.2.1
+  cached_network_image: ^2.3.2+1
+  shimmer: ^1.1.1
 
 
   # The following adds the Cupertino Icons font to your application.

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:don8/screens/home/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -9,11 +10,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final sliderItems = [
     ClipRRect(
-      child: Image.network("https://dummyimage.com/600x400/fff/000"),
+      child: CachedNetworkImage(imageUrl: "https://dummyimage.com/700x400/fff/000"),
       borderRadius: BorderRadius.all(Radius.circular(16.0)),
     ),
     ClipRRect(
-      child: Image.network("https://dummyimage.com/600x400/000/fff"),
+      child: CachedNetworkImage(imageUrl: "https://dummyimage.com/700x400/000/fff"),
       borderRadius: BorderRadius.all(Radius.circular(16.0)),
     ),
   ];
@@ -43,7 +44,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-
           Center(child: CustomCarouselSlider(items: sliderItems)),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -51,121 +51,110 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 4),
-                  child: FlatButton(
-                    onPressed: () {},
-                    padding: EdgeInsets.zero,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Campaigns",
-                          style:
-                              TextStyle(fontFamily: "Montserrat", fontSize: 18),
-                          textAlign: TextAlign.start,
-                        ),
-                        Icon(Icons.keyboard_arrow_right, size: 36),
-                      ],
-                    ),
-                  ),
+                HeadingWidget(
+                  title: "Campaigns",
+                  onPressed: () {},
                 ),
                 SizedBox(height: 8),
-                Table(
-                  children: [
-                    TableRow(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(24.0),
-                          child: Card(
-                            child: InkWell(
-                              onTap: () {},
-                              child: Column(
-                                children: [
-                                  Image.network(
-                                    "https://dummyimage.com/300x300/000/fff",
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Buy a coffee, another one is free!",
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        SizedBox(height: 2),
-                                        Text(
-                                          "Starbucks",
-                                          textAlign: TextAlign.start,
-                                          style: TextStyle(
-                                            fontStyle: FontStyle.italic,
-                                            color: Colors.grey,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(24.0),
-                          child: Card(
-                            child: InkWell(
-                              onTap: () {},
-                              child: Column(
-                                children: [
-                                  Image.network(
-                                    "https://dummyimage.com/300x300/000/fff",
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Buy a coffee, another one is free!",
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        SizedBox(height: 2),
-                                        Text(
-                                          "Starbucks",
-                                          textAlign: TextAlign.start,
-                                          style: TextStyle(
-                                            fontStyle: FontStyle.italic,
-                                            color: Colors.grey,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                campaignsList(),
+                SizedBox(height: 8),
+                HeadingWidget(
+                  title: "Coffees & Restaurants Near You",
+                  onPressed: () {},
                 ),
-                Center(
-                  child: FlatButton(
-                    textColor: Theme.of(context).accentColor,
-                    child: Text(
-                      "Check More Campaigns",
-                      style: TextStyle(fontFamily: "Montserrat"),
-                    ),
-                    onPressed: () {},
-                  ),
-                ),
+                closeCoffeesList(),
+                SizedBox(height: 16),
               ],
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  Container closeCoffeesList() {
+    return Container(
+      height: 190,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: [
+          Container(
+            width: 150,
+            child: RestaurantCard(
+              imageUrl: "https://dummyimage.com/300x300/000/fff",
+              restaurantName: "Starbucks",
+            ),
+          ),
+          Container(
+            width: 150,
+            child: RestaurantCard(
+              imageUrl: "https://dummyimage.com/300x300/000/fff",
+              restaurantName: "Starbucks",
+            ),
+          ),
+          Container(
+            width: 150,
+            child: RestaurantCard(
+              imageUrl: "https://dummyimage.com/300x300/000/fff",
+              restaurantName: "Starbucks",
+            ),
+          ),
+          Container(
+            width: 150,
+            child: RestaurantCard(
+              imageUrl: "https://dummyimage.com/300x300/000/fff",
+              restaurantName: "Starbucks",
+            ),
+          ),
+          IconButton(icon: Icon(Icons.arrow_forward_ios), onPressed: () {})
+        ],
+      ),
+    );
+  }
+
+  Container campaignsList() {
+    return Container(
+      height: 200,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: [
+          Container(
+            width: 150,
+            child: CampaignCard(
+              campaignId: 0,
+              campaignOwner: "Starbucks",
+              campaignText: "Buy one, free one",
+              imageUrl: "https://dummyimage.com/300x300/000/fff",
+            ),
+          ),
+          Container(
+            width: 150,
+            child: CampaignCard(
+              campaignId: 0,
+              campaignOwner: "Starbucks",
+              campaignText: "Buy one, free one",
+              imageUrl: "https://dummyimage.com/300x300/000/fff",
+            ),
+          ),
+          Container(
+            width: 150,
+            child: CampaignCard(
+              campaignId: 0,
+              campaignOwner: "Starbucks",
+              campaignText: "Buy one, free one",
+              imageUrl: "https://dummyimage.com/300x300/000/fff",
+            ),
+          ),
+          Container(
+            width: 150,
+            child: CampaignCard(
+              campaignId: 0,
+              campaignOwner: "Starbucks",
+              campaignText: "Buy one, free one",
+              imageUrl: "https://dummyimage.com/300x300/000/fff",
+            ),
+          ),
+          IconButton(icon: Icon(Icons.arrow_forward_ios), onPressed: () {})
         ],
       ),
     );

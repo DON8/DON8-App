@@ -16,6 +16,7 @@ class _TierCardState extends State<TierCard> {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Container(
           margin: EdgeInsets.only(left: 12),
@@ -57,7 +58,7 @@ class _TierCardState extends State<TierCard> {
                   ),
                 )
               ],
-            )
+            ) 
           ]),
         ),
         Container(
