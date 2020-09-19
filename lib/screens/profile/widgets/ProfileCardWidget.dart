@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ProfileCard extends StatefulWidget {
-  String profileName;
-  String tier;
-  String instagramUrl;
-  String facebookUrl;
-  String githubUrl;
-  int drankCoffee;
+  final String profileName;
+  final String tier;
+  final String instagramUrl;
+  final String facebookUrl;
+  final String githubUrl;
+  final int drankCoffee;
 
   ProfileCard({
     this.profileName,
     this.tier,
-    this.instagramUrl: null,
-    this.facebookUrl: null,
-    this.githubUrl: null,
+    this.instagramUrl: '',
+    this.facebookUrl: '',
+    this.githubUrl: '',
+    this.drankCoffee,
   });
 
   @override
@@ -54,13 +55,13 @@ class _ProfileCardState extends State<ProfileCard> {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (widget.instagramUrl != null)
+                        if (widget.instagramUrl.isNotEmpty)
                           FaIcon(FontAwesomeIcons.instagram),
                         SizedBox(width: 8),
-                        if (widget.facebookUrl != null)
+                        if (widget.facebookUrl.isNotEmpty)
                           FaIcon(FontAwesomeIcons.facebook),
                         SizedBox(width: 8),
-                        if (widget.githubUrl != null)
+                        if (widget.githubUrl.isNotEmpty)
                           FaIcon(FontAwesomeIcons.github),
                       ],
                     ),

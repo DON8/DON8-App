@@ -1,0 +1,1 @@
+export 'CarouselSliderWidget.dart';

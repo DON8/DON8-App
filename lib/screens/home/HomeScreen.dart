@@ -1,4 +1,4 @@
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:don8/screens/home/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -7,6 +7,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final sliderItems = [
+    ClipRRect(
+      child: Image.network("https://dummyimage.com/600x400/fff/000"),
+      borderRadius: BorderRadius.all(Radius.circular(16.0)),
+    ),
+    ClipRRect(
+      child: Image.network("https://dummyimage.com/600x400/000/fff"),
+      borderRadius: BorderRadius.all(Radius.circular(16.0)),
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,32 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
           SizedBox(
             height: 24,
           ),
-          CarouselSlider(
-            items: [
-              ClipRRect(
-                child: Image.network("https://dummyimage.com/600x400/fff/000"),
-                borderRadius: BorderRadius.all(Radius.circular(16.0)),
-              ),
-              ClipRRect(
-                child: Image.network("https://dummyimage.com/600x400/000/fff"),
-                borderRadius: BorderRadius.all(Radius.circular(16.0)),
-              ),
-            ],
-            options: CarouselOptions(
-              height: 200,
-              aspectRatio: 16 / 9,
-              viewportFraction: 0.8,
-              initialPage: 0,
-              enableInfiniteScroll: true,
-              reverse: false,
-              autoPlay: true,
-              autoPlayInterval: Duration(seconds: 10),
-              autoPlayAnimationDuration: Duration(milliseconds: 800),
-              autoPlayCurve: Curves.fastOutSlowIn,
-              enlargeCenterPage: true,
-              scrollDirection: Axis.horizontal,
-            ),
-          )
+          CustomCarouselSlider(items: sliderItems),
         ],
       ),
     );

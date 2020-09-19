@@ -37,7 +37,7 @@ class _MapScreenState extends State<MapScreen> {
                     ),
                     SizedBox(height: 16),
                     Text(
-                        "To complete the project during hackathon, we will add this future in future. Don't worry. We're really decided guys to complete this project and let people DON8!"),
+                        "To complete the project during hackathon, we will add this feature in future. Don't worry. We're really dedicated to this project. Anything it takes to let people DON8!"),
                   ],
                 ),
               ),
