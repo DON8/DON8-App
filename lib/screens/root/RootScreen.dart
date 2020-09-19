@@ -41,6 +41,9 @@ class _RootScreenState extends State<RootScreen> with TickerProviderStateMixin {
       child: Scaffold(
         body: TabBarView(
           controller: _tabBarController,
+          physics: _selectedIndex == 0
+              ? NeverScrollableScrollPhysics()
+              : ScrollPhysics(),
           children: _screens,
         ),
         bottomNavigationBar: bottomNavBar(),
