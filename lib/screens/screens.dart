@@ -1,4 +1,4 @@
-export 'RootScreen.dart';
+export 'root/RootScreen.dart';
 
 export 'home/HomeScreen.dart';
 export 'map/MapScreen.dart';
