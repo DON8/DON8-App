@@ -16,19 +16,19 @@ class _CampaignsScreenState extends State<CampaignsScreen> {
       imageUrl: "https://dummyimage.com/1920x1080/000/fff",
     ),
     Campaign(
-      campaignId: "0",
+      campaignId: "1",
       campaignOwner: "Starbucks",
       campaignName: "Buy one, free one",
       imageUrl: "https://dummyimage.com/1920x1080/000/fff",
     ),
     Campaign(
-      campaignId: "0",
+      campaignId: "2",
       campaignOwner: "Starbucks",
       campaignName: "Buy one, free one",
       imageUrl: "https://dummyimage.com/1920x1080/000/fff",
     ),
     Campaign(
-      campaignId: "0",
+      campaignId: "3",
       campaignOwner: "Starbucks",
       campaignName: "Buy one, free one",
       imageUrl: "https://dummyimage.com/1920x1080/000/fff",

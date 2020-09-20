@@ -1,4 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:don8/models/campaign.dart';
+import 'package:don8/screens/screens.dart';
 import 'package:flutter/material.dart';
 
 class CampaignCard extends StatelessWidget {
@@ -20,10 +22,13 @@ class CampaignCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(24.0),
       child: Card(
         child: InkWell(
-          onTap: () {},
+          onTap: () => goToCampaignScreen(context),
           child: Column(
             children: [
-              CachedNetworkImage(imageUrl: imageUrl),
+              Hero(
+                tag: "campaignImage_" + campaignId,
+                child: CachedNetworkImage(imageUrl: imageUrl),
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -48,6 +53,22 @@ class CampaignCard extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  void goToCampaignScreen(context) {
+    final campaign = Campaign(
+      imageUrl: imageUrl,
+      campaignId: campaignId,
+      campaignName: campaignText,
+      campaignOwner: campaignOwner,
+    );
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CampaignScreen(campaign: campaign),
       ),
     );
   }

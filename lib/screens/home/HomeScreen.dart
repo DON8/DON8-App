@@ -3,6 +3,7 @@ import 'package:don8/screens/home/widgets/widgets.dart';
 import 'package:don8/screens/screens.dart';
 import 'package:don8/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -12,8 +13,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final sliderItems = [
     ClipRRect(
-      child: CachedNetworkImage(
-          imageUrl: "https://dummyimage.com/700x400/fff/000"),
+      child:
+          CachedNetworkImage(imageUrl: "https://dummyimage.com/640x/fff/000"),
       borderRadius: BorderRadius.all(Radius.circular(16.0)),
     ),
     ClipRRect(
@@ -30,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: ListView(
         children: [
           Transform.translate(
-            offset: Offset(0, -30),
+            offset: Offset(0, -32),
             child: PreferredSize(
               preferredSize: new Size.fromHeight(72),
               child: Container(
@@ -119,16 +120,38 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Container campaignsList() {
-    return Container(
-      height: 200,
+  LimitedBox campaignsList() {
+    return LimitedBox(
+      maxHeight: 230,
       child: ListView(
         scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
         children: [
+          LimitedBox(
+            maxHeight: 200,
+            child: Container(
+              width: 150,
+              child: CampaignCard(
+                campaignId: "0",
+                campaignOwner: "Starbucks",
+                campaignText: "Buy one, free one",
+                imageUrl: "https://dummyimage.com/300x300/000/fff",
+              ),
+            ),
+          ),
           Container(
             width: 150,
             child: CampaignCard(
-              campaignId: "0",
+              campaignId: "1",
+              campaignOwner: "Starbucks",
+              campaignText: "Buy one, free one",
+              imageUrl: "https://placekitten.com/300/300",
+            ),
+          ),
+          Container(
+            width: 150,
+            child: CampaignCard(
+              campaignId: "2",
               campaignOwner: "Starbucks",
               campaignText: "Buy one, free one",
               imageUrl: "https://dummyimage.com/300x300/000/fff",
@@ -137,25 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Container(
             width: 150,
             child: CampaignCard(
-              campaignId: "0",
-              campaignOwner: "Starbucks",
-              campaignText: "Buy one, free one",
-              imageUrl: "https://dummyimage.com/300x300/000/fff",
-            ),
-          ),
-          Container(
-            width: 150,
-            child: CampaignCard(
-              campaignId: "0",
-              campaignOwner: "Starbucks",
-              campaignText: "Buy one, free one",
-              imageUrl: "https://dummyimage.com/300x300/000/fff",
-            ),
-          ),
-          Container(
-            width: 150,
-            child: CampaignCard(
-              campaignId: "0",
+              campaignId: "3",
               campaignOwner: "Starbucks",
               campaignText: "Buy one, free one",
               imageUrl: "https://dummyimage.com/300x300/000/fff",

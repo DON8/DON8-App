@@ -31,21 +31,21 @@ class _RootScreenState extends State<RootScreen> with TickerProviderStateMixin {
     _tabBarController.addListener(() {
       _selectedIndex = _tabBarController.index;
 
-      if (_selectedIndex == 2)
-        SystemChrome.setSystemUIOverlayStyle(
-          SystemUiOverlayStyle.dark.copyWith(
-            statusBarIconBrightness: Brightness.dark,
-            statusBarBrightness: Brightness.dark,
-          ),
-        );
-      else {
-        SystemChrome.setSystemUIOverlayStyle(
-          SystemUiOverlayStyle.dark.copyWith(
-            statusBarIconBrightness: Brightness.light,
-            statusBarBrightness: Brightness.light,
-          ),
-        );
-      }
+      // if (_selectedIndex == 2)
+      //   SystemChrome.setSystemUIOverlayStyle(
+      //     SystemUiOverlayStyle.dark.copyWith(
+      //       statusBarIconBrightness: Brightness.dark,
+      //       statusBarBrightness: Brightness.dark,
+      //     ),
+      //   );
+      // else {
+      //   SystemChrome.setSystemUIOverlayStyle(
+      //     SystemUiOverlayStyle.dark.copyWith(
+      //       statusBarIconBrightness: Brightness.light,
+      //       statusBarBrightness: Brightness.light,
+      //     ),
+      //   );
+      // }
       setState(() {});
     });
   }
