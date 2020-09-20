@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:don8/models/campaign.dart';
 import 'package:don8/screens/campaign/widgets/widgets.dart';
 import 'package:don8/screens/screens.dart';
@@ -19,6 +20,7 @@ class _CampaignScreenState extends State<CampaignScreen>
   ScrollController _scrollViewController;
 
   List<Widget> tabs;
+  List<Map<String, String>> _details;
 
   @override
   void initState() {
@@ -28,6 +30,12 @@ class _CampaignScreenState extends State<CampaignScreen>
       vsync: this,
     );
     _scrollViewController = ScrollController(initialScrollOffset: 0.0);
+
+    widget.campaign.loadDetails().then((details) {
+      print(details);
+      _details = details;
+      setState(() {});
+    });
   }
 
   @override
@@ -51,51 +59,26 @@ class _CampaignScreenState extends State<CampaignScreen>
               style: TextStyle(fontFamily: "Montserrat", fontSize: 24),
             ),
             SizedBox(height: 16),
-            Card(
-              color: Theme.of(context).primaryColor,
-              child: ListTile(
-                leading: FaIcon(FontAwesomeIcons.donate),
-                title: Text("You will DON8 a coffee per buy"),
-                trailing: CircleAvatar(child: Text("8")),
-              ),
-            ),
-            SizedBox(height: 8),
-            Card(
-              color: Theme.of(context).primaryColor,
-              child: ListTile(
-                leading: FaIcon(FontAwesomeIcons.donate),
-                title: Text("You will get discount"),
-                trailing: CircleAvatar(child: Text("50%")),
-              ),
-            ),
-            SizedBox(height: 64),
-            Center(
-              child: Column(
-                children: [
-                  Text(
-                    "32₺",
-                    style: TextStyle(
-                        decoration: TextDecoration.lineThrough,
-                        fontFamily: "Montserrat",
-                        fontSize: 18),
-                  ),
-                  Stack(
-                    children: [
-                      Text(
-                        "16₺",
-                        style:
-                            TextStyle(fontSize: 64, fontFamily: "Montserrat"),
+            if (_details != null)
+              Container(
+                child: ListView.builder(
+                  itemCount: widget.campaign.details.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, i) {
+                    return Card(
+                      color: Theme.of(context).primaryColor,
+                      child: ListTile(
+                        leading: FaIcon(FontAwesomeIcons.donate),
+                        title: Text(_details[i]["detail"]),
+                        trailing: CircleAvatar(
+                          child: Text(_details[i]["detail_trailer"]),
+                          backgroundColor: Colors.white,
+                        ),
                       ),
-                      Positioned(
-                        child: CircleAvatar(child: Text("50%")),
-                        bottom: 0,
-                        right: 0,
-                      )
-                    ],
-                  ),
-                ],
+                    );
+                  },
+                ),
               ),
-            ),
             Spacer(),
             SizedBox(
               width: MediaQuery.of(context).size.width,

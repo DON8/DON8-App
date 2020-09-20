@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:don8/screens/screens.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -176,7 +177,11 @@ class _LoginScreenState extends State<LoginScreen> {
     } catch (e) {
       _errorMessage = e.message;
     }
-    setState(() {});
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => RootScreen()),
+    );
   }
 
   Container loginButton() {

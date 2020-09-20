@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:don8/models/models.dart';
 import 'package:don8/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -48,23 +49,26 @@ class _CampaignsScreenState extends State<CampaignsScreen> {
         centerTitle: true,
         elevation: 0,
       ),
-      body: GridView.builder(
-        itemCount: items.length,
-        gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: isPortrait ? 2 : 3,
-        ),
-        itemBuilder: (context, index) {
-          return Container(
-            width: 150,
-            child: CampaignCard(
-              imageUrl: items[index].imageUrl,
-              campaignText: items[index].campaignName,
-              campaignOwner: items[index].campaignOwner,
-              campaignId: items[index].campaignId,
-            ),
-          );
-        },
-      ),
+      body: StreamBuilder<QuerySnapshot>(
+          stream: Campaign.getCollection().snapshots(),
+          builder: (context, snapshot) {
+            return GridView.builder(
+              itemCount: snapshot.data.docs.length,
+              gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: isPortrait ? 2 : 3,
+              ),
+              itemBuilder: (context, i) {
+                return Container(
+                  child: CampaignCard(
+                    imageUrl: snapshot.data.docs[i].get("imageUrl"),
+                    campaignText: snapshot.data.docs[i].get("campaignName"),
+                    campaignOwner: snapshot.data.docs[i].get("campaignOwner"),
+                    campaignId: snapshot.data.docs[i].id,
+                  ),
+                );
+              },
+            );
+          }),
     );
   }
 }

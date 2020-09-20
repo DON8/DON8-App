@@ -1,9 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:don8/models/models.dart';
 import 'package:don8/screens/home/widgets/widgets.dart';
 import 'package:don8/screens/screens.dart';
 import 'package:don8/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -11,18 +14,35 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final sliderItems = [
-    ClipRRect(
-      child:
-          CachedNetworkImage(imageUrl: "https://dummyimage.com/640x/fff/000"),
-      borderRadius: BorderRadius.all(Radius.circular(16.0)),
-    ),
-    ClipRRect(
-      child: CachedNetworkImage(
-          imageUrl: "https://dummyimage.com/700x400/000/fff"),
-      borderRadius: BorderRadius.all(Radius.circular(16.0)),
-    ),
-  ];
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  final sliderItems = <Widget>[];
+
+  @override
+  void initState() {
+    super.initState();
+    loadSliders();
+  }
+
+  loadSliders() async {
+    final snapshot = await firestore
+        .collection("sliders")
+        .where("place", isEqualTo: null)
+        .get();
+
+    List<dynamic> images = snapshot.docs[0].get("images");
+
+    images.forEach((element) {
+      sliderItems.add(
+        ClipRRect(
+          child: CachedNetworkImage(imageUrl: element.toString()),
+          borderRadius: BorderRadius.all(Radius.circular(16.0)),
+        ),
+      );
+    });
+
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +69,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          Center(child: CustomCarouselSlider(items: sliderItems)),
+          Center(
+              child: sliderItems.isEmpty
+                  ? CircularProgressIndicator()
+                  : CustomCarouselSlider(items: sliderItems)),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
             width: MediaQuery.of(context).size.width,
@@ -122,56 +145,37 @@ class _HomeScreenState extends State<HomeScreen> {
 
   LimitedBox campaignsList() {
     return LimitedBox(
-      maxHeight: 230,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        children: [
-          LimitedBox(
-            maxHeight: 200,
-            child: Container(
-              width: 150,
-              child: CampaignCard(
-                campaignId: "0",
-                campaignOwner: "Starbucks",
-                campaignText: "Buy one, free one",
-                imageUrl: "https://dummyimage.com/300x300/000/fff",
-              ),
-            ),
-          ),
-          Container(
-            width: 150,
-            child: CampaignCard(
-              campaignId: "1",
-              campaignOwner: "Starbucks",
-              campaignText: "Buy one, free one",
-              imageUrl: "https://placekitten.com/300/300",
-            ),
-          ),
-          Container(
-            width: 150,
-            child: CampaignCard(
-              campaignId: "2",
-              campaignOwner: "Starbucks",
-              campaignText: "Buy one, free one",
-              imageUrl: "https://dummyimage.com/300x300/000/fff",
-            ),
-          ),
-          Container(
-            width: 150,
-            child: CampaignCard(
-              campaignId: "3",
-              campaignOwner: "Starbucks",
-              campaignText: "Buy one, free one",
-              imageUrl: "https://dummyimage.com/300x300/000/fff",
-            ),
-          ),
-          IconButton(
-            icon: Icon(Icons.arrow_forward_ios),
-            onPressed: goToCompaigns,
-          ),
-        ],
-      ),
+      maxHeight: 200,
+      child: StreamBuilder<QuerySnapshot>(
+          stream: Campaign.getCollection().snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData || snapshot.data == null)
+              return Center(child: CircularProgressIndicator());
+
+            return ListView.builder(
+              itemCount:
+                  snapshot.data.docs.length > 4 ? 5 : snapshot.data.docs.length,
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              itemBuilder: (context, i) {
+                if (i == 4)
+                  return IconButton(
+                    icon: Icon(Icons.arrow_forward_ios),
+                    onPressed: goToCompaigns,
+                  );
+
+                return Container(
+                  width: 150,
+                  child: CampaignCard(
+                    campaignId: snapshot.data.docs[i].id,
+                    campaignOwner: snapshot.data.docs[i].get("campaignOwner"),
+                    campaignText: snapshot.data.docs[i].get("campaignName"),
+                    imageUrl: snapshot.data.docs[i].get("imageUrl"),
+                  ),
+                );
+              },
+            );
+          }),
     );
   }
 }

@@ -27,7 +27,12 @@ class CampaignCard extends StatelessWidget {
             children: [
               Hero(
                 tag: "campaignImage_" + campaignId,
-                child: CachedNetworkImage(imageUrl: imageUrl),
+                child: CachedNetworkImage(
+                  imageUrl: imageUrl,
+                  fit: BoxFit.cover,
+                  height: 100,
+                  width: MediaQuery.of(context).size.width,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
