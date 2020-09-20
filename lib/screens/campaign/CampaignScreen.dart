@@ -1,5 +1,6 @@
 import 'package:don8/models/campaign.dart';
 import 'package:don8/screens/campaign/widgets/widgets.dart';
+import 'package:don8/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -99,7 +100,15 @@ class _CampaignScreenState extends State<CampaignScreen>
             SizedBox(
               width: MediaQuery.of(context).size.width,
               child: RaisedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => CampaignActivateScreen(
+                        campaignId: widget.campaign.campaignId,
+                      ),
+                    ),
+                  );
+                },
                 child: Text(
                   "Use",
                   style: TextStyle(

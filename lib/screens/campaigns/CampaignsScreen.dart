@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:don8/models/models.dart';
 import 'package:don8/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +44,7 @@ class _CampaignsScreenState extends State<CampaignsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Campaigns"),
+        title: Text("Campaigns", style: TextStyle(fontFamily: "Montserrat")),
         centerTitle: true,
         elevation: 0,
       ),

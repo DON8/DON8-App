@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "651447114869",
+    "firebase_url": "https://don8-290000.firebaseio.com",
+    "project_id": "don8-290000",
+    "storage_bucket": "don8-290000.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:651447114869:android:b1a44151a64f9390a4ac3c",
+        "android_client_info": {
+          "package_name": "com.akcware.don8"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "651447114869-b8dvftapsqap1un6hhcnc7p3m9puqcq8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB65lRa9OJOHcdD4R28_63r7Cfprf2SRh4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "651447114869-b8dvftapsqap1un6hhcnc7p3m9puqcq8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
