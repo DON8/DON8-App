@@ -35,7 +35,17 @@ class _ProfileCardState extends State<ProfileCard> {
         ),
         child: Row(
           children: [
-            CircleAvatar(radius: 64),
+            CircleAvatar(
+              radius: 64,
+              backgroundColor: Theme.of(context).primaryColor,
+              child: Text(
+                getInitials(widget.profileName).toString(),
+                style: TextStyle(
+                  fontSize: 48,
+                  color: Colors.white,
+                ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -73,5 +83,19 @@ class _ProfileCardState extends State<ProfileCard> {
         ),
       ),
     );
+  }
+
+  String getInitials(string) {
+    List<String> names = string.split(" ");
+    String initials = "";
+    int numWords = 2;
+
+    if (numWords < names.length) {
+      numWords = names.length;
+    }
+    for (var i = 0; i < numWords; i++) {
+      initials += '${names[i][0]}';
+    }
+    return initials;
   }
 }

@@ -52,6 +52,8 @@ class _CampaignsScreenState extends State<CampaignsScreen> {
       body: StreamBuilder<QuerySnapshot>(
           stream: Campaign.getCollection().snapshots(),
           builder: (context, snapshot) {
+            if (!snapshot.hasData)
+              return Center(child: CircularProgressIndicator());
             return GridView.builder(
               itemCount: snapshot.data.docs.length,
               gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(

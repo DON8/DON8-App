@@ -16,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  final sliderItems = <Widget>[];
+  List<Widget> sliderItems;
 
   @override
   void initState() {
@@ -32,8 +32,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
     List<dynamic> images = snapshot.docs[0].get("images");
 
+    final items = <Widget>[];
+
     images.forEach((element) {
-      sliderItems.add(
+      items.add(
         ClipRRect(
           child: CachedNetworkImage(imageUrl: element.toString()),
           borderRadius: BorderRadius.all(Radius.circular(16.0)),
@@ -41,7 +43,9 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     });
 
-    setState(() {});
+    sliderItems = items;
+
+    if (this.mounted) setState(() {});
   }
 
   @override
@@ -70,9 +74,20 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           Center(
-              child: sliderItems.isEmpty
-                  ? CircularProgressIndicator()
-                  : CustomCarouselSlider(items: sliderItems)),
+            child: CustomCarouselSlider(
+              items: sliderItems != null
+                  ? sliderItems
+                  : [
+                      Shimmer.fromColors(
+                        child: Container(
+                          color: Colors.white,
+                        ),
+                        baseColor: Colors.grey,
+                        highlightColor: Colors.white,
+                      )
+                    ],
+            ),
+          ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
             width: MediaQuery.of(context).size.width,
@@ -87,13 +102,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 campaignsList(),
                 SizedBox(height: 8),
                 HeadingWidget(
-                  title: "Coffees & Restaurants Near You",
+                  title: "Cafes & Restaurants Near You",
                 ),
                 closeCoffeesList(),
                 SizedBox(height: 16),
               ],
             ),
           ),
+          Center(
+            child: Text(
+              "MADE WITH ☕ & ❤",
+              style: TextStyle(fontFamily: "Montserrat"),
+            ),
+          ),
+          SizedBox(height: 32),
         ],
       ),
     );
@@ -107,39 +129,26 @@ class _HomeScreenState extends State<HomeScreen> {
   Container closeCoffeesList() {
     return Container(
       height: 190,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: [
-          Container(
-            width: 150,
-            child: RestaurantCard(
-              imageUrl: "https://dummyimage.com/300x300/000/fff",
-              restaurantName: "Starbucks",
-            ),
-          ),
-          Container(
-            width: 150,
-            child: RestaurantCard(
-              imageUrl: "https://dummyimage.com/300x300/000/fff",
-              restaurantName: "Starbucks",
-            ),
-          ),
-          Container(
-            width: 150,
-            child: RestaurantCard(
-              imageUrl: "https://dummyimage.com/300x300/000/fff",
-              restaurantName: "Starbucks",
-            ),
-          ),
-          Container(
-            width: 150,
-            child: RestaurantCard(
-              imageUrl: "https://dummyimage.com/300x300/000/fff",
-              restaurantName: "Starbucks",
-            ),
-          ),
-        ],
-      ),
+      child: StreamBuilder<QuerySnapshot>(
+          stream: Restaurant.getCollection().snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData)
+              return Center(child: CircularProgressIndicator());
+
+            return ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: snapshot.data.docs.length,
+              itemBuilder: (context, i) {
+                return Container(
+                  width: 150,
+                  child: RestaurantCard(
+                    imageUrl: snapshot.data.docs[i].get("restaurantImage"),
+                    restaurantName: snapshot.data.docs[i].get("restaurantName"),
+                  ),
+                );
+              },
+            );
+          }),
     );
   }
 
