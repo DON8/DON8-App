@@ -1,3 +1,6 @@
+![Banner](https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/225/031/datas/original.png "Banner")
+Check on devpost: https://devpost.com/software/don8-donation-made-great?
+
 ## Inspiration
 Getting a coffee first thing in the morning is kind of essential for us, and most of you people too, i suppose. We (Aşkın and Görkem) would meet up everyday morning and get our coffees before anything, we used to drink at this Local coffee joint, the employees knew about us and we were kind of friends, so was the homeless person living around the coffee joint, Mehmet. We always gave him the change from our drinks. He told us he was getting his breakfast with the little amount of Money we gave him and we were just happy for him.
 
