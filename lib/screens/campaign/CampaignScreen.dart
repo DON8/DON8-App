@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:don8/models/campaign.dart';
 import 'package:don8/screens/campaign/widgets/widgets.dart';
 import 'package:don8/screens/screens.dart';
